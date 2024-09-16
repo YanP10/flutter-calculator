@@ -47,6 +47,17 @@ class _MyHomePageState extends State<MyHomePage> {
         } catch (e) {
           _display = 'Error';
         }
+      } else if (value == 'x²') {
+        try {
+          final expression = Expression.parse(_expression);
+          final evaluator = const ExpressionEvaluator();
+          final result = evaluator.eval(expression, {});
+          _expression = '($result) * ($result)';
+          final squaredResult = evaluator.eval(Expression.parse(_expression), {});
+          _display = '($result)² = $squaredResult';
+        } catch (e) {
+          _display = 'Error';
+        }
       } else {
         _expression += value;
         _display = _expression;
@@ -81,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 '4', '5', '6', '*',
                 '1', '2', '3', '-',
                 'C', '0', '=', '+',
+                'x²'
               ].map((value) {
                 return GridTile(
                   child: ElevatedButton(
